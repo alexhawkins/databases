@@ -13,29 +13,36 @@ dbConnection.connect();
 
 var getAllMessages = function(callback){
 
-  var queryString = "SELECT * FROM messages";
-  var queryArgs = [];
+  var queryString = "SELECT * FROM ??";
+  var queryArgs = ['messages'];
 
   dbConnection.query(queryString, queryArgs, function(err, results) {
     callback(results);
   });
 };
 
-var postMessage = function(message){
-  var queryString = "INSERT INTO messages (text, user_id, room_id) VALUES (message)";
-  var queryArgs = [];
+var postMessage = function(data, callback){
+  console.log('posting message');
+  var queryString = "INSERT INTO messages (text, user_id, room_id) VALUES (?, ?, ?)";
+  var queryArgs = [data.text, data.user_id, data.room_id];
 
   dbConnection.query(queryString, queryArgs, function(err) {
     callback(err);
   });
+
 };
 
 var getAllUsers = function() {
 
 };
 
-var addUser = function(user) {
+var addUser = function(data, callback) {
+  var queryString = "INSERT INTO users (name) VALUES (?)";
+  var queryArgs = [data.username];
 
+  dbConnection.query(queryString, queryArgs, function(err) {
+    callback(err);
+  });
 };
 
 exports.getAllMessages = getAllMessages;

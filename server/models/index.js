@@ -19,8 +19,8 @@ module.exports = {
     get: function () {
       db.getAllUsers();
     },
-    post: function (data) {
-      db.addUser();
+    post: function (data, callback) {
+      db.addUser(data, callback);
     }
   }
 };
